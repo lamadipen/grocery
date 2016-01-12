@@ -1,3 +1,6 @@
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -131,8 +134,37 @@ public class Purchase {
 	}
 	
 	//Method to search and display all purchase amounts and total payables with a given postcode
-	public void searchByPostcode()
+	public void searchByPostcode(Purchase[] purchaseAmountArray, Purchase[] postcodeArray) throws NumberFormatException, IOException
 	{
+		//Declaring  variables
+		int postcode;
+		int postcodeArrayCount = postcodeArray.length;
+		
+		System.out.println("\n");
+		System.out.println("\t\t  |*|-----|*| SEARCH PURCHASE  BY POSTCODE|*|-----|*|");
+		
+		System.out.println("\n\t\t\t   (1) Enter by  postcode");
+		
+		BufferedReader breader= new BufferedReader(new InputStreamReader(System.in));
+		postcode= Integer.parseInt(breader.readLine());
+		
+		for (int a=0; a<postcodeArrayCount; a++)
+		{
+			if (postcodeArray[a].getPostcode() == postcode)
+			{
+				System.out.println("\n\n\t\tHere is your Searched Result.... ");
+				System.out.println(postcode);
+				break;
+			}
+			/**
+			else
+			{
+				System.out.println("\n\n\t\tPostcod not found .... ");
+				break;
+			}	
+			**/
+		}
+		
 		
 	}	
 }

@@ -146,7 +146,8 @@ public class PurchaseTest {
 				break;
 
 				case 3: 
-				//Search();
+					purchaseTestObj = new PurchaseTest();
+					purchaseObj.searchByPostcode(purchaseTestObj.purchaseAmountArray,purchaseTestObj.postcodeArray);
 				break;
 
 				case 4:
