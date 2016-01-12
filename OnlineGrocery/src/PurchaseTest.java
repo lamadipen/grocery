@@ -2,7 +2,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Scanner;
 
 
@@ -14,11 +17,12 @@ public class PurchaseTest {
 	
 	//Arrays/ArrayList
 	double[] totalPayable;
-	public Purchase purchaseAmountArray[]= new Purchase[N];
-	public Purchase postcodeArray[]= new Purchase[N];
+	public static Purchase purchaseAmountArray[]= new Purchase[N];
+	public static Purchase postcodeArray[]= new Purchase[N];
 	
 	//constructors
 	public PurchaseTest() {		
+		
 		postcodeArray[0] = new Purchase(4121); 
 		postcodeArray[1] = new Purchase(4123);
 		postcodeArray[2] = new Purchase(4120);
@@ -27,8 +31,7 @@ public class PurchaseTest {
 		purchaseAmountArray[0] = new Purchase(450.50);
 		purchaseAmountArray[1] = new Purchase(460.23);
 		purchaseAmountArray[2] = new Purchase(470.75);
-		purchaseAmountArray[3] = new Purchase(460.23);
-		
+		purchaseAmountArray[3] = new Purchase(460.23);		
 	}
 	
 	//Method to read, validate and store postcode and purchase amount for N customers
@@ -74,29 +77,87 @@ public class PurchaseTest {
 			else
 			{
 				System.out.print("Done: ");
+				System.out.print("purchaseAmount: "+purchaseAmount);
+				System.out.print("postcode: "+postcode);
 				
 				purchaseAmountArray[customerCounter] = new Purchase(purchaseAmount);
-				postcodeArray[customerCounter] = new Purchase(postcode);				
-			}
+				postcodeArray[customerCounter] = new Purchase(postcode);	
 				
+				System.out.println(purchaseAmountArray[1].getPurchaseAmount());
+			}			
 		}
 		
 		
 	}
 	
 	//Method to display the total payable for all customers
-	//Method for displaying information
+	public void displayTotalPayable()
+	{
+		List<Purchase> postacodelist = new ArrayList<Purchase>(Arrays.asList(postcodeArray));
+		postacodelist.removeAll(Collections.singleton(null));
+	    
+	    Purchase[] tempPostcodeArray = postacodelist.toArray(new Purchase[postacodelist.size()]);
+       
+	    List<Purchase> purchaselist = new ArrayList<Purchase>(Arrays.asList(purchaseAmountArray));
+	    purchaselist.removeAll(Collections.singleton(null));
+	    
+	    Purchase[] tempPurchaseAmountArray= purchaselist.toArray(new Purchase[purchaselist.size()]);
+	    
+	    System.out.println(Arrays.deepToString(tempPurchaseAmountArray));
+	    System.out.println("Postal code \t\t Total Payable");
+	    
+		int postcodeArrayLength = tempPostcodeArray.length;
+	
+		for (int m= 0; m < postcodeArrayLength; m++)
+		{					  		
+			if(tempPostcodeArray[m].getPostcode() == 4121)
+			{
+				if(tempPurchaseAmountArray[m].getPurchaseAmount() >= 400)
+				{
+					System.out.println(tempPostcodeArray[m].getPostcode() +"\t\t\t $"+ (tempPurchaseAmountArray[m].getPurchaseAmount() ));
+				}
+				else
+				{
+					System.out.println(tempPostcodeArray[m].getPostcode() +"\t\t\t $"+ (tempPurchaseAmountArray[m].getPurchaseAmount() + 8));
+				}
+				
+			}
+			else if(tempPostcodeArray[m].getPostcode() == 4122)
+			{
+				System.out.println(tempPostcodeArray[m].getPostcode() +"\t\t\t $"+ (tempPurchaseAmountArray[m].getPurchaseAmount() + 12));
+			}
+			else if(tempPostcodeArray[m].getPostcode() == 4123)
+			{
+				System.out.println(tempPostcodeArray[m].getPostcode() +"\t\t\t $"+ (tempPurchaseAmountArray[m].getPurchaseAmount() + 15));
+			}
+			else
+			{
+				System.out.println(tempPostcodeArray[m].getPostcode() +"\t\t\t $"+ (tempPurchaseAmountArray[m].getPurchaseAmount() ));
+			}					
+		}
+	}
+	//Method for displaying information 
+	//delete after successful project completion
 	public void Display()
 	{
-		int postcodeArrayLength = postcodeArray.length;
+		
+		
+		List<Purchase> postacodelist = new ArrayList<Purchase>(Arrays.asList(postcodeArray));
+		postacodelist.removeAll(Collections.singleton(null));
+	    
+	    Purchase[] tempPostcodeArray = postacodelist.toArray(new Purchase[postacodelist.size()]);
+       
+	    System.out.println(Arrays.deepToString(tempPostcodeArray));
+		int postcodeArrayLength = tempPostcodeArray.length;
 		
 		System.out.println("ID\tNAME\t\t\tAUTHOR\t\tPRICE\tISBN\t\tPUBLISHER\ttEdition");
 		System.out.println();
-		for (int m= 0; m <= postcodeArrayLength; m++)
+		for (int m= 0; m < postcodeArrayLength; m++)
 		{					  		
-			System.out.println(postcodeArray[m].getPostcode());
+			System.out.println(tempPostcodeArray[m].getPostcode());
 		}
 		System.out.println("\nPress Enter to Return to Main Page Options.");
+		
 	}
 	
 	//main method
@@ -112,6 +173,7 @@ public class PurchaseTest {
 		
 		// While loop to continually display menu and read option
 		while (customerCount <= N) {
+			//delete after testing
 			System.out.println("This customer no" + customerCount);
 			
 			
@@ -141,12 +203,13 @@ public class PurchaseTest {
 
 				case 2: 
 					purchaseTestObj = new PurchaseTest();
-					purchaseTestObj.Display();
-				;
+					purchaseTestObj.displayTotalPayable();
 				break;
 
 				case 3: 
-				//Search();
+				//Search();	
+					purchaseTestObj = new PurchaseTest();
+					purchaseTestObj.Display();	
 				break;
 
 				case 4:
@@ -157,22 +220,13 @@ public class PurchaseTest {
 				case 5:
 					purchaseTestObj = new PurchaseTest();
 					//Find and display the postcode/s with the lowest purchase amount
-					purchaseObj.displayLowestPurchase(purchaseTestObj.purchaseAmountArray,purchaseTestObj.postcodeArray);
-				//double totalPrice=0.00;
-				/**
-				for(int a=0;a<counter;a++)
-						{
-							totalPrice += items[a].getbookPrice();
-							System.out.println("The totla price of all books="+totalPrice);	
-						}
-				**/
-	
-	
+					purchaseObj.displayLowestPurchase(purchaseTestObj.purchaseAmountArray,purchaseTestObj.postcodeArray);				
 				break;
 
 				case 6:
+					purchaseTestObj = new PurchaseTest();
 					//Sort and display the total payable in descending order
-					purchaseObj.displayTotalPayableDescending();
+					purchaseObj.displayTotalPayableDescending(purchaseTestObj.purchaseAmountArray,purchaseTestObj.postcodeArray);
 				break;
 				case 7: 
 					//Search and display all purchase amount and Total payable with a given postcode
@@ -181,7 +235,10 @@ public class PurchaseTest {
 					System.out.println("THANKS FOR USING!");
 					System.exit(0);
 					break;
-							
+				case 9:
+					purchaseTestObj = new PurchaseTest();
+					purchaseTestObj.Display();	
+					break;
 				default:
 				{
 				System.out.println("Invalid Input!");
