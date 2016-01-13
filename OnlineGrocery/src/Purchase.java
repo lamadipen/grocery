@@ -47,9 +47,65 @@ public class Purchase {
 	
 	//display method
 	//Method to display postcode, and total payable for purchase amounts of $400 and above
-	public void displayAbove()
+	public void displayAbove(Purchase[] purchaseAmountArray, Purchase[] postcodeArray)
 	{
+		List<Purchase> postacodelist = new ArrayList<Purchase>(Arrays.asList(postcodeArray));
+		postacodelist.removeAll(Collections.singleton(null));
+	    
+	    Purchase[] tempPostcodeArray = postacodelist.toArray(new Purchase[postacodelist.size()]);
+       
+	    List<Purchase> purchaselist = new ArrayList<Purchase>(Arrays.asList(purchaseAmountArray));
+	    purchaselist.removeAll(Collections.singleton(null));
+	    
+	    Purchase[] tempPurchaseAmountArray= purchaselist.toArray(new Purchase[purchaselist.size()]);
+	    	    
+	    int arrayKey = tempPurchaseAmountArray.length;
+		double [] tempTotalPayable = new double[arrayKey];
+
+		int postcodeArrayLength = tempPostcodeArray.length;
+	
+		for (int m= 0; m < postcodeArrayLength; m++)
+		{					  		
+			if(tempPostcodeArray[m].getPostcode() == 4121)
+			{
+				if(tempPurchaseAmountArray[m].getPurchaseAmount() >= 400)
+				{
+					tempTotalPayable[m] = tempPurchaseAmountArray[m].getPurchaseAmount();
+				}
+				else
+				{
+					tempTotalPayable[m] = tempPurchaseAmountArray[m].getPurchaseAmount() + 8;					
+				}
+				
+			}
+			else if(tempPostcodeArray[m].getPostcode() == 4122)
+			{
+				tempTotalPayable[m] = tempPurchaseAmountArray[m].getPurchaseAmount() + 12 ;				
+			}
+			else if(tempPostcodeArray[m].getPostcode() == 4123)
+			{
+				tempTotalPayable[m] = tempPurchaseAmountArray[m].getPurchaseAmount() + 15;				
+			}
+			else
+			{
+				tempTotalPayable[m] = tempPurchaseAmountArray[m].getPurchaseAmount();				
+			}
+		}
 		
+		if(purchaseAmountArray == null)
+		{
+			System.out.println("No purchases to be displayed");
+		}
+		else
+		{
+			for (int k = 0; k < tempTotalPayable.length; k++) {
+				
+				if(tempTotalPayable[k] > 400)
+				{
+					System.out.println(tempPostcodeArray[k].getPostcode() + "\t\t\t $" +tempPurchaseAmountArray[k].getPurchaseAmount() + "\t\t\t $"+tempTotalPayable[k] );
+				}		
+			}
+		}
 	}
 	
 	//Method to find and display the postcode/s with the highest purchase amount
@@ -175,31 +231,32 @@ public class Purchase {
 		}
 		
 		
-		//algorithym to sort array
 		int min = 0;
 	    double temp;
 	    Purchase tempPurchase, tempPostcode;
 	    
+	    //algorithym to sort array
 		for(int i=0 ; i < tempTotalPayable.length; i++)
 		{
 			min = i;
-			for(int j =0; j < tempTotalPayable.length; j++)
+			for(int j =i+1; j < tempTotalPayable.length; j++)
 			{
 				if(tempTotalPayable[j] < tempTotalPayable[i])
 				{
-					min = j;
+					 min = j;
+					 temp = tempTotalPayable[i];
+					 tempTotalPayable[i] = tempTotalPayable[min];
+			         tempTotalPayable[min] = temp;
+			         
+			         tempPurchase = tempPurchaseAmountArray[i];
+			         tempPurchaseAmountArray[i] = tempPurchaseAmountArray[min];
+			         tempPurchaseAmountArray[min] = tempPurchase;
+			         
+			         tempPostcode = tempPostcodeArray[i];
+			         tempPostcodeArray[i] = tempPostcodeArray[min];
+			         tempPostcodeArray[min] = tempPostcode;
 				}
-				 temp = tempTotalPayable[i];
-				 tempTotalPayable[i] = tempTotalPayable[min];
-		         tempTotalPayable[min] = temp;
-		         
-		         tempPurchase = tempPurchaseAmountArray[i];
-		         tempPurchaseAmountArray[i] = tempPurchaseAmountArray[min];
-		         tempPurchaseAmountArray[min] = tempPurchase;
-		         
-		         tempPostcode = tempPostcodeArray[i];
-		         tempPostcodeArray[i] = tempPostcodeArray[min];
-		         tempPostcodeArray[min] = tempPostcode;
+				 
 			}
 		}
 		
@@ -209,10 +266,6 @@ public class Purchase {
 			
 			System.out.println(tempPostcodeArray[k].getPostcode() + "\t\t\t $" +tempPurchaseAmountArray[k].getPurchaseAmount() + "\t\t\t $"+tempTotalPayable[k] );
 		}
-	
-	    
-	   
-		
 	}
 	
 	//Method to search and display all purchase amounts and total payables with a given postcode
@@ -220,7 +273,56 @@ public class Purchase {
 	{
 		//Declaring  variables
 		int postcode;
-		int postcodeArrayCount = postcodeArray.length;
+		int unsuccess =0;
+		
+		List<Purchase> postacodelist = new ArrayList<Purchase>(Arrays.asList(postcodeArray));
+		postacodelist.removeAll(Collections.singleton(null));
+	    
+	    Purchase[] tempPostcodeArray = postacodelist.toArray(new Purchase[postacodelist.size()]);
+	    
+	    List<Purchase> purchaselist = new ArrayList<Purchase>(Arrays.asList(purchaseAmountArray));
+	    purchaselist.removeAll(Collections.singleton(null));
+	    
+	    Purchase[] tempPurchaseAmountArray= purchaselist.toArray(new Purchase[purchaselist.size()]);
+	    
+	    
+	    int arrayKey = tempPurchaseAmountArray.length;
+		double [] tempTotalPayable = new double[arrayKey];
+
+		int postcodeArrayLength = tempPostcodeArray.length;
+	
+		for (int m= 0; m < postcodeArrayLength; m++)
+		{					  		
+			if(tempPostcodeArray[m].getPostcode() == 4121)
+			{
+				if(tempPurchaseAmountArray[m].getPurchaseAmount() >= 400)
+				{
+					tempTotalPayable[m] = tempPurchaseAmountArray[m].getPurchaseAmount();
+				}
+				else
+				{
+					tempTotalPayable[m] = tempPurchaseAmountArray[m].getPurchaseAmount() + 8;					
+				}
+				
+			}
+			else if(tempPostcodeArray[m].getPostcode() == 4122)
+			{
+				tempTotalPayable[m] = tempPurchaseAmountArray[m].getPurchaseAmount() + 12 ;				
+			}
+			else if(tempPostcodeArray[m].getPostcode() == 4123)
+			{
+				tempTotalPayable[m] = tempPurchaseAmountArray[m].getPurchaseAmount() + 15;				
+			}
+			else
+			{
+				tempTotalPayable[m] = tempPurchaseAmountArray[m].getPurchaseAmount();				
+			}
+						
+		}
+	    
+	    
+       
+		int postcodeArrayCount = tempPostcodeArray.length;
 		
 		System.out.println("\n");
 		System.out.println("\t\t  |*|-----|*| SEARCH PURCHASE  BY POSTCODE|*|-----|*|");
@@ -230,21 +332,24 @@ public class Purchase {
 		BufferedReader breader= new BufferedReader(new InputStreamReader(System.in));
 		postcode= Integer.parseInt(breader.readLine());
 		
+		System.out.println("\n\n\t\tHere is your Searched Result.... ");
+		System.out.println("Postal code \t\t Purchase Amount \t\t Total Payable");
+		
 		for (int a=0; a<postcodeArrayCount; a++)
-		{
+		{		
 			if (postcodeArray[a].getPostcode() == postcode)
-			{
-				System.out.println("\n\n\t\tHere is your Searched Result.... ");
-				System.out.println(postcode);
-				break;
+			{								
+				System.out.println(postcode + "\t\t\t $" +tempPurchaseAmountArray[a].getPurchaseAmount() + "\t\t\t $"+tempTotalPayable[a] );
 			}
-			/**
 			else
 			{
-				System.out.println("\n\n\t\tPostcod not found .... ");
-				break;
-			}	
-			**/
+				unsuccess++;
+			}			
+		}
+			
+		if( postcodeArrayCount == unsuccess)
+		{
+			System.out.println("No result found!!!");	
 		}
 		
 		
