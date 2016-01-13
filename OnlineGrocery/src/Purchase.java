@@ -128,8 +128,90 @@ public class Purchase {
 	}
 	
 	//Method to sort and display the total payable in descending order
-	public void displayTotalPayableDescending()
-	{
+	public void displayTotalPayableDescending(Purchase[] purchaseAmountArray, Purchase[] postcodeArray)
+	{					
+		List<Purchase> postacodelist = new ArrayList<Purchase>(Arrays.asList(postcodeArray));
+		postacodelist.removeAll(Collections.singleton(null));
+	    
+	    Purchase[] tempPostcodeArray = postacodelist.toArray(new Purchase[postacodelist.size()]);
+       
+	    List<Purchase> purchaselist = new ArrayList<Purchase>(Arrays.asList(purchaseAmountArray));
+	    purchaselist.removeAll(Collections.singleton(null));
+	    
+	    Purchase[] tempPurchaseAmountArray= purchaselist.toArray(new Purchase[purchaselist.size()]);
+	    	    
+	    int arrayKey = tempPurchaseAmountArray.length;
+		double [] tempTotalPayable = new double[arrayKey];
+
+		int postcodeArrayLength = tempPostcodeArray.length;
+	
+		for (int m= 0; m < postcodeArrayLength; m++)
+		{					  		
+			if(tempPostcodeArray[m].getPostcode() == 4121)
+			{
+				if(tempPurchaseAmountArray[m].getPurchaseAmount() >= 400)
+				{
+					tempTotalPayable[m] = tempPurchaseAmountArray[m].getPurchaseAmount();
+				}
+				else
+				{
+					tempTotalPayable[m] = tempPurchaseAmountArray[m].getPurchaseAmount() + 8;					
+				}
+				
+			}
+			else if(tempPostcodeArray[m].getPostcode() == 4122)
+			{
+				tempTotalPayable[m] = tempPurchaseAmountArray[m].getPurchaseAmount() + 12 ;				
+			}
+			else if(tempPostcodeArray[m].getPostcode() == 4123)
+			{
+				tempTotalPayable[m] = tempPurchaseAmountArray[m].getPurchaseAmount() + 15;				
+			}
+			else
+			{
+				tempTotalPayable[m] = tempPurchaseAmountArray[m].getPurchaseAmount();				
+			}
+						
+		}
+		
+		
+		//algorithym to sort array
+		int min = 0;
+	    double temp;
+	    Purchase tempPurchase, tempPostcode;
+	    
+		for(int i=0 ; i < tempTotalPayable.length; i++)
+		{
+			min = i;
+			for(int j =0; j < tempTotalPayable.length; j++)
+			{
+				if(tempTotalPayable[j] < tempTotalPayable[i])
+				{
+					min = j;
+				}
+				 temp = tempTotalPayable[i];
+				 tempTotalPayable[i] = tempTotalPayable[min];
+		         tempTotalPayable[min] = temp;
+		         
+		         tempPurchase = tempPurchaseAmountArray[i];
+		         tempPurchaseAmountArray[i] = tempPurchaseAmountArray[min];
+		         tempPurchaseAmountArray[min] = tempPurchase;
+		         
+		         tempPostcode = tempPostcodeArray[i];
+		         tempPostcodeArray[i] = tempPostcodeArray[min];
+		         tempPostcodeArray[min] = tempPostcode;
+			}
+		}
+		
+		System.out.println("Postal code \t\t Purchase Amount \t\t Total Payable");
+		// printing all the array values 
+		for (int k = 0; k < tempTotalPayable.length; k++) {
+			
+			System.out.println(tempPostcodeArray[k].getPostcode() + "\t\t\t $" +tempPurchaseAmountArray[k].getPurchaseAmount() + "\t\t\t $"+tempTotalPayable[k] );
+		}
+	
+	    
+	   
 		
 	}
 	
