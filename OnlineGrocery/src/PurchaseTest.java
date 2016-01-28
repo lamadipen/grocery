@@ -23,16 +23,17 @@ public class PurchaseTest {
 	//default constructor
 	public PurchaseTest() {		
 		//this is just for testing deleted after successfult testing all feature,
-		/**
+		
 		postcodeArray[0] = new Purchase(4121); 
 		postcodeArray[1] = new Purchase(4122);
 		postcodeArray[2] = new Purchase(4120);
 		postcodeArray[3] = new Purchase(4122);
 		
-		purchaseAmountArray[0] = new Purchase(450.50);
+		purchaseAmountArray[0] = new Purchase(300.50);
 		purchaseAmountArray[1] = new Purchase(460.23);
-		purchaseAmountArray[2] = new Purchase(470.75);
+		purchaseAmountArray[2] = new Purchase(200.75);
 		purchaseAmountArray[3] = new Purchase(460.23);	
+		/**
 		**/	
 	}
 
@@ -45,19 +46,21 @@ public class PurchaseTest {
 		int conform =0;
 	
 		do{
+			
 			BufferedReader breader= new BufferedReader(new InputStreamReader(System.in));
+			System.out.print("Customer no: " + (customerCounter +1)+"\n");
 			System.out.print("Postcode: ");
 			postcode= Integer.parseInt(breader.readLine());
 			
 			if(4121 >postcode)
 			{
-				System.out.print("Postcode must be greater than 4121");
-				System.out.print("Try again: ");							
+				System.out.print("Postcode must be greater than 4121\n");
+				System.out.print("Try again:\n ");							
 			}
 			else if(postcode > 4123)
 			{
-				System.out.print("Postcode must be less than 4123");
-				System.out.print("Try again: ");							
+				System.out.print("Postcode must be less than 4123\n");
+				System.out.print("Try again: \n");							
 			}
 			else
 			{
@@ -68,7 +71,6 @@ public class PurchaseTest {
 
 	    if(conform == 1)
 	    {
-	    	System.out.println(conform);
 	    	do
 			{
 				BufferedReader breader2= new BufferedReader(new InputStreamReader(System.in));
@@ -78,14 +80,14 @@ public class PurchaseTest {
 				
 				if(purchaseAmount < 60)
 				{
-					System.out.print("Purchase Amount must be greater than $60");
-					System.out.print("Try again: ");
+					System.out.print("Purchase Amount must be greater than $60\n");
+					System.out.print("Try again: \n");
 					continue;
 				}
 				else if(purchaseAmount > 500)
 				{
-					System.out.print("Purchase Amount must be greater than $500");
-					System.out.print("Try again: ");												
+					System.out.print("Purchase Amount must be greater than $500\n");
+					System.out.print("Try again: \n");												
 				}	
 				else
 				{
@@ -96,7 +98,7 @@ public class PurchaseTest {
 
 		    if(conform == 2)
 		    {
-		    	System.out.print("Done: ");
+		    	System.out.print("Done: \n\n");
 		    	
 				purchaseAmountArray[customerCounter] = new Purchase(purchaseAmount);
 				postcodeArray[customerCounter] = new Purchase(postcode);												
@@ -167,9 +169,9 @@ public class PurchaseTest {
 		do
 		{
 			BufferedReader breader= new BufferedReader(new InputStreamReader(System.in));
-
+			
+			System.out.println("\n\t\t\t****** Welcome to Online Grocery System ******");
 			System.out.println("\n");
-
 			System.out.println("\n\t\t\t******Enter your choice******");
 			System.out.println("\n\t\t\t\t1.Add purchase amount");
 			System.out.println("\n\t\t\t\t2.Display total payable");

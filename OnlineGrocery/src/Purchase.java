@@ -241,7 +241,7 @@ public class Purchase {
 			min = i;
 			for(int j =i+1; j < tempTotalPayable.length; j++)
 			{
-				if(tempTotalPayable[j] < tempTotalPayable[i])
+				if(tempTotalPayable[j] > tempTotalPayable[i])
 				{
 					 min = j;
 					 temp = tempTotalPayable[i];
